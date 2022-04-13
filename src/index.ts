@@ -84,9 +84,32 @@ function createInputRow(item: Item) {
   return `
     <tr>
       <th>
+      ${item.label}
       </th>
       <td>
-        <input />
+      ${
+        item.type === "text" || item.type === "tel" || item.type === "email"
+          ? `<input type=${item.type} placeholder=${item.placeholder} >`
+          : ""
+      }
+      ${
+        item.type === "checkbox"
+          ? item.values?.map(
+              (v) =>
+                `<input type=${item.type} name=${v.value}>
+                <label for=${v.value}>${v.label}</label>`
+            )
+          : ""
+      }
+      ${
+        item.type === "radio"
+          ? item.values?.map(
+              (v) =>
+                `<input type=${item.type} value=${v.value} name=${item.name}>
+              <label for=${v.value}>${v.label}</label>`
+            )
+          : ""
+      }
       </td>
     </tr>
   `;
@@ -96,9 +119,13 @@ function createSelectRow(item: Item) {
   return `
     <tr>
       <th>
+      ${item.label}
       </th>
       <td>
         <select>
+        ${item.options?.map(
+          (v) => `<option value=${v.value}>${v.text}</option>`
+        )}
         </select>
       </td>
     </tr>
@@ -109,9 +136,10 @@ function createTextAreaRow(item: Item) {
   return `
     <tr>
       <th>
+      ${item.label}
       </th>
       <td>
-        <textarea></textarea>
+        <textarea placeholder=${item.placeholder}></textarea>
       </td>
     </tr>
   `;
@@ -135,7 +163,9 @@ function createTable() {
 
 function createFormDom() {
   const form = document.getElementById("form");
-  form.innerHTML = createTable();
+  if (form) {
+    form.innerHTML = createTable();
+  }
 }
 
 createFormDom();
