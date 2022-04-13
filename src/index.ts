@@ -126,8 +126,8 @@ function createInputRadioRow(item: RadioItem) {
       ${item.values
         .map(
           (v) =>
-            `<input type=${item.type} value=${v.value} name=${item.name}>
-              <label for=${v.value}>${v.label}</label>`
+            `<input type=${item.type} value=${v.value} name=${item.name} id=radio-${v.label}>
+              <label for=radio-${v.label}>${v.label}</label>`
         )
         .join("")}
       </td>
@@ -145,8 +145,8 @@ function createInputCheckboxRow(item: CheckboxItem) {
       ${item.values
         .map(
           (v) =>
-            `<input type=${item.type} name=${v.value}>
-                <label for=${v.value}>${v.label}</label>`
+            `<div><input type=${item.type} name=${v.value} id=checkbox-${v.label}>
+                <label for=checkbox-${v.label}>${v.label}</label></div>`
         )
         .join("")}
       </td>
